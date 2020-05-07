@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+
+<header>
+    <div>icon</div>
+</header>
+<form asp-controller="Home" asp-action="Login" method="post">
+    <input type="text" name="emailOrUserName" value="" required />
+    <input type="text" name="password" value="" required />
+    <button type="submit">Login</button>
+</form>
+<br />
+@Html.ActionLink("Forgot password?", "ForgotPassword", "Home")
