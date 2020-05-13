@@ -1,72 +1,1119 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿/* variables */
+:root {
+    --background: rgb(21, 32, 43);
+    --secondary: #0A0B5B;
+    --border: rgb(56, 68, 77);
 }
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
+/* base styles */
 html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+    height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  font-family: "Roboto", sans-serif;
+    height: 100%;
 }
+
+#root {
+    height: 170%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: var(--background);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.explore-header {
+    flex-grow: 1;
+}
+
+.header-container {
+    width: 275px;
+    padding: 0 20px;
+    height: 100%;
+    margin-left: auto;
+}
+
+.nav-container {
+    position: fixed;
+    height: 170%;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    flex-shrink: 0;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 10px;
+}
+
+.nav-text {
+    margin-left: 20px;
+}
+
+.nav-item-active {
+    color: #1da1f2;
+}
+
+.explore-main {
+    display: flex;
+    flex-grow: 1;
+}
+
+.main-wrapper {
+    display: flex;
+}
+
+.main-login-container {
+    display: flex;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    border-right: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    height: 5555%;
+}
+
+#root::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.home-header::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.login-container::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.explore-header::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.home-nav-wrapper::-webkit-scrollbar {
+    width: 0 !important
+}
+
+.search-wrapper {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    position: fixed;
+    width: 598px;
+    margin: 1px;
+    background-color: var(--background);
+}
+
+.search-container {
+    width: 100%;
+    height: 33px;
+    margin: 10px 5px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    height: 33px;
+    width: 100%;
+    background-color: rgb(37, 51, 65);
+    border-radius: 20px;
+    align-items: center;
+}
+
+.twitter-icon-mobile {
+    display: none;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: rgb(136, 153, 166);
+}
+
+.feather-search {
+    padding-left: 10px;
+    width: 30px;
+}
+
+.search-input {
+    margin-left: 5px;
+    padding: 10px;
+    height: 13px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: rgba(0,0,0,0);
+    color: #fff;
+}
+
+.settings-button {
+    color: #1da1f2;
+    margin-left: 30px;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-size: 19px;
+    font-weight: 900;
+    border-bottom: 1px solid var(--border);
+    margin-top: 54px;
+}
+
+.content-header-text {
+    font-size: 19px;
+    line-height: 24px;
+    display: block;
+}
+
+.content-wrapper {
+    border-bottom: 1px solid var(--border);
+}
+
+.content-container {
+}
+
+.content {
+    padding: 10px 15px;
+}
+
+.content-first-row {
+    display: flex;
+    flex-direction: row;
+    height: 19px;
+}
+
+.trending-location {
+    color: #8899A6;
+    font-size: 13px;
+}
+
+.hashtag-title {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.tweet-count {
+    font-size: 15px;
+    color: #8899A6;
+}
+
+.down-icon {
+    margin-left: auto;
+}
+
+.feather-chevron-down {
+    stroke-width: 0.5px;
+}
+
+.show-more-container {
+    padding: 15px;
+}
+
+.show-more {
+    color: #1da1f2;
+    font-size: 15px;
+}
+
+.login-wrapper {
+    width: 350px;
+    margin: 10px 10px 0 30px;
+}
+
+.login-container {
+    position: fixed;
+    width: 350px;
+    overflow: auto;
+    height: 100%;
+}
+
+.login-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 14px;
+    border: thin solid var(--border);
+}
+
+.login-img {
+    width: 238.5px;
+}
+
+.login-header {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.email-username {
+    background-color: rgb(25, 39, 52);
+    width: 100%;
+    margin: 10px 0;
+}
+
+.input-label {
+    width: 100%;
+    border-bottom: 2px solid rgb(136, 153, 166);
+    margin-bottom: 0px;
+    background-color: rgb(25, 39, 52);
+}
+
+.tag-container {
+    padding: 0px 10px 5px;
+}
+
+.input-tag {
+    color: #8899a6;
+    font-size: 15px;
+}
+
+.email-username-input {
+    width: 100%;
+    padding: 2px 10px 5px;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 19px;
+}
+
+.password {
+    background-color: rgb(25, 39, 52);
+    width: 100%;
+}
+
+.password-wrapper a {
+    display: block;
+    color: #1b95e0;
+    font-size: 13px;
+    margin: 5px 0 15px;
+}
+
+.password-input {
+    width: 100%;
+    padding: 2px 10px 5px;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 19px;
+}
+
+
+.form-login-button-container {
+    display: flex;
+    padding: 0 15px;
+    border: thin solid rgb(29, 161, 242);
+    border-radius: 20px;
+    height: 39px;
+    color: #1da1f2;
+    font-weight: 700;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-login-button {
+    width: 100%;
+    text-align: center;
+}
+
+.or-seperator {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.form-signup-button-container {
+    display: flex;
+    padding: 0 15px;
+    border-radius: 20px;
+    height: 39px;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    background-color: #1da1f2;
+    margin: 0px 0px 5px;
+}
+
+.form-signup-button {
+    width: 100%;
+    text-align: center;
+}
+
+.login-nav-container {
+    margin-top: 15px;
+    margin-bottom: 100px;
+    padding: 0 15px;
+    font-size: 13px;
+    color: #8899A6;
+}
+
+    .login-nav-container nav {
+        display: inline;
+    }
+
+    .login-nav-container div {
+        display: inline;
+    }
+
+.login-nav-items {
+    font-size: 13px;
+}
+
+    .login-nav-items div {
+        cursor: pointer;
+        display: inline;
+    }
+
+    .login-nav-items a {
+        text-decoration: none;
+        color: #8899A6;
+        padding-right: 10px;
+    }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    height: 69px;
+    color: #fff;
+    background-color: #1da1f2;
+}
+
+.footer-empty {
+    width: 275px;
+    height: 49px;
+}
+
+.footer-header {
+    font-size: 23px;
+    font-weight: 700;
+    height: 31px;
+}
+
+.footer-description {
+    font-size: 15px;
+    height: 20px;
+}
+
+.footer-items {
+    display: flex;
+    width: 990px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer-login-signup {
+    display: flex;
+    height: 49px;
+    align-items: center;
+    align-self: flex-end;
+    margin: 0 15px;
+}
+
+.footer-login {
+    padding: 0 15px;
+    border: thin solid white;
+    border-radius: 20px;
+    height: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+.footer-login span{
+    color:#fff !important;
+}
+.footer-signup {
+    padding: 0 15px;
+    border-radius: 20px;
+    height: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1da1f2;
+    background-color: #fff;
+    margin-left: 10px;
+    font-weight: 700;
+}
+
+.footer-buttons {
+    display: flex;
+}
+
+/* icons */
+.explorer-twitter-icon {
+    display: inline-block;
+    height: 53px;
+    width: 49px;
+    text-align: center;
+    line-height: 49px;
+    padding: 2px 0;
+}
+
+.explorer-hashtag-icon {
+    width: 21px;
+    font-weight: 600;
+}
+
+.explorer-settings-icon {
+    width: 21px;
+}
+
+.feather-settings {
+    width: 21px;
+    height: 28px;
+}
+
+.fa-twitter {
+    font-size: 28px;
+}
+
+.fa-hashtag {
+    font-size: 21px;
+}
+
+@media only screen and (max-width :1279px) {
+    .nav-text {
+        display: none !important;
+    }
+
+    .header-container {
+        width: 88px;
+    }
+
+    .footer-empty {
+        width: 88px;
+    }
+
+    .home-nav-wrapper {
+        width: 48px !important;
+    }
+
+    .home-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .home-navs {
+        width: 48px;
+    }
+
+    .explorer-settings-icon {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-nav-wrapper {
+        width: 68px !important;
+    }
+
+    .user-nav-tohide {
+        display: none !important;
+    }
+
+    .user-nav-toshrink {
+        padding-left: 5px !important;
+        width: 58px;
+    }
+
+    .nav-tweet-button-container {
+        width: 47px !important;
+        height: 47px !important;
+        margin: 0px !important;
+    }
+
+    .nav-tweet-button {
+        width: 47px !important;
+        height: 47px !important;
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+
+    .nav-item-home {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 47px;
+    }
+
+    .sidebar-tweet-button {
+        fill: currentColor;
+        width: 22.5px;
+        height: 22.5px;
+        content: none;
+    }
+
+    .sidebar-tweet-text {
+        display: none;
+    }
+}
+
+@media only screen and (max-width :1100px) {
+    .login-container {
+        width: 290px;
+    }
+
+    .search-container-home {
+        width: 290px !important;
+    }
+
+    .login-img {
+        width: 193.5px;
+    }
+}
+
+@media only screen and (max-width :1050px) {
+    .login-wrapper {
+        display: none;
+    }
+
+    .footer-items {
+        width: 600px;
+    }
+}
+
+@media only screen and (max-width :700px) {
+    .explore-main {
+        width: calc(100% - 88px);
+    }
+
+    .main-login-container {
+        width: 100%;
+    }
+
+    .main-wrapper {
+        width: 100%;
+    }
+
+    .search-wrapper {
+        width: calc(100% - 88px);
+    }
+
+    .footer {
+        height: 60px;
+    }
+
+    .footer-empty {
+        display: none;
+    }
+
+    .footer-title {
+        display: none;
+    }
+
+    .footer-login-signup {
+        width: 100%;
+    }
+
+    .footer-login {
+        width: 50%;
+    }
+
+    .footer-signup {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width :500px) {
+    .explore-header {
+        display: none;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    .explore-main {
+        width: 100%;
+    }
+
+    .twitter-icon-mobile {
+        display: block;
+        margin-right: 20px;
+    }
+
+    .footer {
+        background-color: var(--background);
+        border-top: 1px solid var(--border);
+    }
+
+    .footer-login-signup {
+        height: 30px;
+    }
+
+    .footer-login {
+        color: #1da1f2;
+        border-color: #1da1f2;
+        height: 100%;
+    }
+
+    .footer-signup {
+        color: #fff;
+        background-color: #1da1f2;
+        height: 100%;
+    }
+}
+
+@media only screen and (max-width :220px) {
+    .footer-login {
+        width: 90px;
+    }
+
+    .footer-signup {
+        width: 90px;
+    }
+}
+
+/* login 2 styling */
+#root-login {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+}
+
+.login-form-container {
+    width: 600px;
+    height: 375px;
+    align-self: flex-start;
+    margin: 20px auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.twitter-icon-login {
+    font-size: 36px;
+}
+
+.login-form-title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.email-2 {
+    padding: 10px 15px;
+    background-color: var(--background);
+    margin: 0px;
+}
+
+.pass-2 {
+    padding: 10px 15px;
+    background-color: var(--background);
+}
+
+.login-button-container-2 {
+    height: 49px;
+    padding: 0px;
+    height: 69px;
+    border: none;
+}
+
+.login-button-2 {
+    margin: 10px;
+    padding: 0 30px;
+    height: 49px;
+    border-radius: 9999px;
+    background-color: #1da1f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+}
+
+.login-options-container {
+    margin: 20px 0 0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-options {
+    display: flex;
+    flex-direction: row;
+}
+
+    .login-options a {
+        color: #1b95e0;
+    }
+
+.flex-center {
+}
+
+.dot-seperator {
+    width: 13px;
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 2px;
+    color: #8899A6;
+}
+
+/* SIGN UP STYLES */
+#root-signup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-form-container {
+    width: 600px;
+    height: 650px;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    background-color: var(--background);
+    border-radius: 14px;
+    z-index: 10;
+}
+
+.signup-form-icon {
+    margin-top: 20px;
+}
+
+.signup-form-title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 23px;
+    font-weight: 700;
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(110, 118, 125, 0.4);
+    z-index: 5;
+}
+
+@media only screen and (max-width :700px) {
+    #signup-root {
+        background-color: var(--background);
+    }
+
+    .backdrop {
+        display: none;
+    }
+
+    .signup-form-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        border: thin solid var(--background)
+    }
+}
+
+/* HOME PAGE STYLING */
+.nav-item-home {
+    height: 54.25px;
+}
+
+
+.home-nav-wrapper {
+    position: fixed;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 255px;
+    overflow-x: hidden;
+    justify-content: space-between;
+}
+
+.nav-tweet-button-container {
+    margin: 9px 0 5px 0;
+    border-radius: 9999px;
+    background-color: #1da1f2;
+    width: 211.5px;
+    height: 49px;
+    padding: 0px;
+}
+
+.nav-tweet-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.user-nav-wrapper {
+    width: 235px;
+    height: 59px;
+    margin: 20px 0 10px;
+}
+
+.user-nav {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+}
+
+.user-nav-picture-container {
+    height: 39px;
+    width: 39px;
+    border-radius: 50%;
+}
+
+.user-nav-picture {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+}
+
+.user-nav-detail {
+    margin-left: 10px;
+}
+
+.user-nav-name {
+    line-height: 19.6875px;
+}
+
+.user-nav-username {
+    line-height: 19.6875px;
+    color: #8899A6;
+}
+
+.user-nav-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.search-container-home {
+    padding: 0px;
+    height: 53px;
+    margin-left: 0px;
+    margin-top: 0px;
+    position: fixed;
+    width: 350px;
+}
+
+.search-bar-home {
+    height: 42px;
+}
+
+.home-trends-container {
+    margin-top: 63px;
+}
+
+.home-trends-section {
+    background-color: #192734;
+    border-color: #192734;
+    padding: 0px;
+}
+
+.home-content-header {
+    margin: 0px;
+    width: 100%;
+}
+
+.home-content-wrapper {
+    width: 100%;
+}
+
+.home-show-more {
+    width: 100%;
+}
+
+.user-nav-tofollow {
+    width: 100%;
+    height: 70px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.user-nav-follow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 78.64px;
+    border-radius: 20px;
+    color: #1da1f2;
+    border: thin solid #1da1f2;
+    margin-left: auto;
+}
+
+.home-content-settings {
+    margin-left: auto;
+}
+
+.home-title-text {
+    font-weight: 800;
+    font-size: 19px;
+}
+
+.spark-icon-container {
+    margin-left: auto;
+}
+
+.spark-icon {
+    width: 25px;
+    height: 25px;
+    color: rgba(29,161,242,1.00);
+    fill: currentColor;
+}
+
+.content-header-home {
+    border-bottom: 10px solid var(--border);
+    padding: 5px 10px 10px;
+}
+
+.user-tweet-form-container {
+    display: flex;
+    width: 100%;
+}
+
+.user-tweet-picture-container {
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    margin: 0 5px;
+    padding: 5px 0 0;
+}
+
+.user-tweet-picture {
+    max-width: 100%;
+    max-height: 100%;
+    width: 49px;
+    height: 49px;
+    border-radius: 50%;
+}
+
+.user-tweet-form {
+    width: 100%;
+}
+
+.tweet-input-wrapper {
+    padding: 15px 0 10px;
+}
+
+.user-tweet-input {
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    color: #fff;
+}
+
+.tweet-form-controls {
+    display: flex;
+    height: 49px;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tweet-control-button {
+    color: rgb(29, 161, 242);
+    padding-right: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.gif-button, .picture-button, .poll-button, .smiley-button {
+    fill: currentColor;
+    width: 22.5px;
+    height: 22.5px;
+}
+
+.tweet-submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 74px;
+    height: 39px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: #1da1f2;
+    margin-left: auto;
+}
+
+.tweet-submit-text {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.content-home {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid var(--border);
+}
+
+.tweet-content {
+    font-size: 15px;
+}
+
+.poster-tweet-container {
+    width: 100%;
+    padding-left: 5px;
+}
+
+.poster-tweet-controls {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 50px;
+    padding: 10px 50px 0 0;
+    color: rgb(136, 153, 166);
+}
+
+.poster-info {
+    display: flex;
+}
+
+.poster-info-extra {
+    color: #8899a6;
 }
