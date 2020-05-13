@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using TwitterMVC.Data;
 using NETCore.MailKit.Extensions;
 using NETCore.MailKit.Infrastructure.Internal;
-
+using TwitterMVC.Models;
 namespace TwitterMVC
 {
     public class Startup
@@ -26,12 +26,12 @@ namespace TwitterMVC
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(config =>
+            services.AddDbContextPool<AppDbContext>(config =>
             {
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             //AddIdentity registers the services
-            services.AddIdentity<IdentityUser, IdentityRole>(config =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 config.Password.RequiredLength = 4;
                 config.Password.RequireDigit = false;
@@ -54,7 +54,7 @@ namespace TwitterMVC
             services.AddMailKit(config => config.UseMailKit(mailKitOptions));
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
+            services.AddTransient<ITweetRepository, SQLTweetRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -76,6 +76,7 @@ namespace TwitterMVC
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
+                
             });
         }
     }

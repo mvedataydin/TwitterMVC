@@ -7,29 +7,54 @@ using NETCore.MailKit.Core;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using TwitterMVC.ViewModels;
+using System.Security.Claims;
 
 namespace TwitterMVC.Controllers
 {
     [Route("[controller]")]
     public class HomeController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailService _emailService;
+        private readonly ITweetRepository _tweetRepository;
 
         public HomeController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            IEmailService emailService)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IEmailService emailService, ITweetRepository tweetRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
+            _tweetRepository = tweetRepository;
         }
 
-        [HttpGet("")]
-        [Route("Index")]
+        [Route("")]
+        [Route("/")]
+        [Route("[action]")]
+        [Route("Explore")]
         public IActionResult Index()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {              
+                return View("Explore");
+            }
+            else
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
+                var tweets = _tweetRepository.GetUserTweets(userId);
+                return View("Index", tweets);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("Profile")]
+        public IActionResult Profile() => View();
+
+        [HttpGet("Login")]
+        public IActionResult Login()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -40,13 +65,8 @@ namespace TwitterMVC.Controllers
                 return RedirectToAction("Profile");
             }
         }
-
-        [Authorize]
-        [HttpGet("Profile")]
-        public IActionResult Profile() => View();
-
-        [HttpGet("Login")]
-        public IActionResult Login()
+        [HttpGet("Explore")]
+        public IActionResult Explore()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -76,12 +96,14 @@ namespace TwitterMVC.Controllers
         [HttpGet("ResetPasswordConfirmed")]
         public IActionResult ResetPasswordConfirmed() => View();
 
+        [HttpPost("Explore")]
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync(string emailOrUserName, string password)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                IdentityUser user;
+                if (emailOrUserName == null) return RedirectToAction("Index");
+                ApplicationUser user;
                 if (emailOrUserName.Contains('@'))
                 {
                     user = await _userManager.FindByEmailAsync(emailOrUserName);
@@ -93,18 +115,19 @@ namespace TwitterMVC.Controllers
                 }
                 if (user != null)
                 {
+                    var tweets = _tweetRepository.GetUserTweets(user.Id);
                     var result = await _signInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Profile");
+                        return RedirectToAction("Index", tweets);
                     }
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Explore");
             }
             else
             {
-                return RedirectToAction("Profile");
+                return RedirectToAction("Index");
             }
            
         }
@@ -117,7 +140,7 @@ namespace TwitterMVC.Controllers
             var user = await _userManager.FindByEmailAsync(email);
             if (user != null) { return BadRequest(); } // User Already Exists
 
-            user = new IdentityUser
+            user = new ApplicationUser
             {
                 UserName = userName,
                 Email = email
