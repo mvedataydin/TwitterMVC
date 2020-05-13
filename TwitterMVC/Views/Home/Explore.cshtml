@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewData["Title"] = "Explore";
+}
+
+<div id="root">
+    <header class="explore-header">
+        <div class="header-container">
+            <div class="nav-container">
+                <div class="explorer-twitter-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="nav-items">
+                    <div class="nav-item nav-item-active">
+                        <div class="explorer-hashtag-icon">
+                            <i class="fas fa-hashtag"></i>
+                        </div>
+                        <div class="nav-text">
+                            Explore
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="explorer-settings-icon">
+                            <i data-feather="settings" class="feather-settings"></i>
+                        </div>
+                        <div class="nav-text">
+                            Settings
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="explore-main">
+        <div class="main-login-container">
+            <div class="main-wrapper">
+                <div class="main-container">
+                    <div class="search-wrapper">
+                        <div class="search-container">
+                            <div class="twitter-icon-mobile">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div class="search-bar">
+
+                                <div class="search-icon">
+                                    <i data-feather="search" class="feather-search"></i>
+
+                                </div>
+                                <input class="search-input" placeholder="Search Twitter">
+                            </div>
+                            <div class="settings-button">
+                                <i data-feather="settings" class="feather-settings"></i>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-container">
+                        <div class="content-header">
+                            <span class="content-header-text">
+                                Trends for you
+                            </span>
+                        </div>
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div class="content-first-row">
+                                    <div class="trending-location">
+                                        Trending in Turkey
+                                    </div>
+                                    <div class="down-icon">
+                                        <i data-feather="chevron-down" class="feather-chevron-down"></i>
+
+                                    </div>
+                                </div>
+                                <div class="hashtag-title">#Corona</div>
+                                <div class="tweet-count">55K Tweets</div>
+                            </div>
+                        </div>
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div class="content-first-row">
+                                    <div class="trending-location">
+                                        Trending in Turkey
+                                    </div>
+                                    <div class="down-icon">
+                                        <i data-feather="chevron-down" class="feather-chevron-down"></i>
+
+                                    </div>
+                                </div>
+                                <div class="hashtag-title">#Corona</div>
+                                <div class="tweet-count">55K Tweets</div>
+                            </div>
+                        </div>
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div class="content-first-row">
+                                    <div class="trending-location">
+                                        Trending in Turkey
+                                    </div>
+                                    <div class="down-icon">
+                                        <i data-feather="chevron-down" class="feather-chevron-down"></i>
+
+                                    </div>
+                                </div>
+                                <div class="hashtag-title">#Corona</div>
+                                <div class="tweet-count">55K Tweets</div>
+                            </div>
+                        </div>
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div class="content-first-row">
+                                    <div class="trending-location">
+                                        Trending in Turkey
+                                    </div>
+                                    <div class="down-icon">
+                                        <i data-feather="chevron-down" class="feather-chevron-down"></i>
+
+                                    </div>
+                                </div>
+                                <div class="hashtag-title">#Corona</div>
+                                <div class="tweet-count">55K Tweets</div>
+                            </div>
+                        </div>
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div class="content-first-row">
+                                    <div class="trending-location">
+                                        Trending in Turkey
+                                    </div>
+                                    <div class="down-icon">
+                                        <i data-feather="chevron-down" class="feather-chevron-down"></i>
+
+                                    </div>
+                                </div>
+                                <div class="hashtag-title">#Corona</div>
+                                <div class="tweet-count">55K Tweets</div>
+                            </div>
+                        </div>
+                        <div class="show-more-container">
+                            <a>
+                                <div class="show-more">Show more</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="login-wrapper">
+                <div class="login-container">
+                    <section class="login-section">
+                        <img class="login-img" draggable="false"  src="~/assets/img/twitter_login_sidebar_illustration.png" >
+                        <div class="login-header">
+                            <span class="login-header-text">
+                                See what’s happening in the world right now
+
+                            </span>
+                        </div>
+                        <form asp-controller="Home" asp-action="Login" method="post" class="login-form" id="login-form-explore">
+                            <div class="email-username">
+                                <label class="input-label">
+                                    <div>
+                                        <div class="tag-container">
+                                            <span class="input-tag">Phone, email or username</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input type="text" name="emailOrUserName" class="email-username-input" value="" required />
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="password-wrapper">
+                                <div class="password">
+                                    <label class="input-label">
+                                        <div>
+                                            <div class="tag-container">
+                                                <span class="input-tag">Password</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="password" name="password" class="password-input" value="" required />
+                                        </div>
+                                    </label>
+                                </div>
+                                <a href="/home/forgotpassword">Forgot Password?</a>
+                            </div>
+                            <div class="form-login-button-container">
+                                <div class="form-login-button" onclick="submitOnClick('login-form-explore')">
+                                    Log in
+                                </div>
+                            </div>
+                            <div class="or-seperator">
+                                or
+                            </div>
+                            <a href="/home/register" class="form-signup-button-container">
+                                <div class="form-signup-button">
+                                    <span>Sign up</span>
+                                </div>
+                            </a>
+                        </form>
+                    </section>
+                    <div class="login-nav-container">
+                        <nav class="login-nav-items">
+                            <a href="#"><span>Terms</span></a>
+                            <a href="#"><span>Privacy Policy</span></a>
+                            <a href="#"><span>Cookies</span></a>
+                            <a href="#"><span>Ads Info</span></a>
+                            <div>
+                                <span>More</span>
+                                <i data-feather="chevron-down" class="feather-chevron-down"></i>
+                            </div>
+
+                        </nav>
+                        <div>
+                            <span>© 2020 Twitter, Inc.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="footer">
+        <div class="footer-empty">
+
+        </div>
+        <div class="footer-items">
+            <div class="footer-title">
+                <div class="footer-header">
+                    Don’t miss what’s happening
+                </div>
+                <div class="footer-description">
+                    People on Twitter are the first to know.
+                </div>
+            </div>
+            <div class="footer-login-signup">
+                <a href="/home/login" class="footer-login">
+
+                    <span>Log in</span>
+                </a>
+
+                <a href="/home/register" class="footer-signup">
+
+                    <span>Sign up</span>
+
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submitOnClick(formName) {
+        document.forms[formName].submit();
+    }
+        feather.replace()
+</script>
+
