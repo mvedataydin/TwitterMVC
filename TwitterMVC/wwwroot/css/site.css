@@ -50,6 +50,7 @@ body {
     font-size: 19px;
     font-weight: 700;
     padding: 10px;
+    cursor: pointer;
 }
 
 .nav-text {
@@ -57,7 +58,7 @@ body {
 }
 
 .nav-item-active {
-    color: #1da1f2;
+    color: #1da1f2 !important;
 }
 
 .explore-main {
@@ -107,7 +108,6 @@ body {
     border-bottom: 1px solid var(--border);
     position: fixed;
     width: 598px;
-    margin: 1px;
     background-color: var(--background);
 }
 
@@ -335,6 +335,7 @@ body {
 .form-login-button {
     width: 100%;
     text-align: center;
+    cursor: pointer;
 }
 
 .or-seperator {
@@ -354,6 +355,7 @@ body {
     align-items: center;
     background-color: #1da1f2;
     margin: 0px 0px 5px;
+    cursor: pointer;
 }
 
 .form-signup-button {
@@ -391,7 +393,10 @@ body {
         color: #8899A6;
         padding-right: 10px;
     }
-
+.nav-items a {
+    text-decoration: none;
+    color: white;
+}
 .footer {
     position: fixed;
     display: flex;
@@ -459,6 +464,7 @@ body {
     background-color: #fff;
     margin-left: 10px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .footer-buttons {
@@ -795,6 +801,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    top:0;
 }
 
 .signup-form-container {
@@ -824,11 +831,12 @@ body {
 }
 
 .backdrop {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(110, 118, 125, 0.4);
     z-index: 5;
+    top: 0;
 }
 
 @media only screen and (max-width :700px) {
@@ -915,6 +923,7 @@ body {
 
 .user-nav-name {
     line-height: 19.6875px;
+    font-weight: 700 !important;
 }
 
 .user-nav-username {
@@ -984,10 +993,15 @@ body {
     color: #1da1f2;
     border: thin solid #1da1f2;
     margin-left: auto;
+    cursor: pointer;
 }
-
+.user-nav-follow span {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+}
 .home-content-settings {
-    margin-left: auto;
+margin-left: auto;
 }
 
 .home-title-text {
@@ -1008,7 +1022,7 @@ body {
 
 .content-header-home {
     border-bottom: 10px solid var(--border);
-    padding: 5px 10px 10px;
+    padding: 5px 15px 10px;
 }
 
 .user-tweet-form-container {
@@ -1109,11 +1123,250 @@ body {
     padding: 10px 50px 0 0;
     color: rgb(136, 153, 166);
 }
-
+.poster-tweet-controls div{
+    cursor: pointer;
+}
 .poster-info {
     display: flex;
 }
 
 .poster-info-extra {
     color: #8899a6;
+}
+.poster-info-fullname{
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+#login-page-signup-button {
+    color: #1b95e0;
+    cursor: pointer;
+}
+
+.content-header-profile{
+    height: 380px;
+    border-bottom: none;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+}
+.profile-banner {
+    height: 200px;
+    width: 100%;
+    background-color: rgb(61, 84, 102);
+}
+.profile-user-detail-section{
+    width: 100%;
+    height: 165px;
+    padding: 10px 15px 0 15px;
+    margin-bottom: 15px;
+}
+.profile-user-detail-header{
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.profile-user-detail-avatar {
+    height: 142px;
+    width: 142px;
+    margin-top: -93px;
+    border: 4px solid rgb(21, 32, 43);
+    border-radius: 9999px;
+}
+.user-nav-avatar-img {
+    max-width: 134px;
+    max-height: 134px;
+    border-radius: 9999px;
+}
+
+.profile-user-detail-edit {
+    font-weight: 700 !important;
+    color: #1DA1F2;
+    font-size: 15px;
+
+}
+.edit-profile-button {
+    text-decoration: none;
+    color: #1DA1F2;
+    font-size: 15px;
+    height: 40px;
+    margin-bottom: 10px;
+    width: 110px;
+    padding: 0 15px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid #1DA1F2;
+    cursor: pointer;
+}
+.username-name-container{
+    margin-bottom: 10px;
+}
+.profile-user-detail-name {
+    font-size: 19px;
+    font-weight: 800;
+    height: 24px;
+}
+.profile-user-detail-username{
+    color: #8899A6;
+    height:19px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.profile-user-detail-date{
+    color: #8899A6;
+    font-size:15px;
+    font-weight: 400;
+    margin: 0 0 10px;
+    height:19px;
+}
+.profile-user-detail-stats{
+    height: 24px;
+}
+.calendar-profile{
+    margin-right: 7px;
+}
+.profile-following-count{
+    font-size: 15px;
+    font-weight:700;
+}
+.profile-following-text {
+    color: #8899A6;
+    font-size: 15px;
+    font-weight: 400;
+    margin-right: 15px;
+}
+.profile-follower-count {
+    font-size: 15px;
+    font-weight: 700;
+}
+.profile-follower-text {
+    color: #8899A6;
+    font-size: 15px;
+    font-weight: 400;
+}
+.profile-tweet-navs{
+    height: 53px;
+    width: 100%;
+    display:flex;
+    flex-direction:row;
+    border-bottom: thin solid var(--border);
+    margin-top: 10px;
+}
+.profile-tweet-nav-item{
+    padding: 15px;
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    flex-grow:1;
+    color:#8899A6;
+    font-size:15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.profile-nav-item-active {
+    background-color: rgba(29, 161, 242, 0.1);
+    border-bottom: 2px solid rgb(29, 161, 242);
+    color: #1DA1F2;
+
+}
+
+.edit-profile-container{
+    height: 650px;
+    max-height: 90vh;
+    min-height: 400px;
+    overflow-y: scroll;
+    padding: 0px;
+}
+.edit-profile-container::-webkit-scrollbar {
+    display: none;
+}
+.edit-profile-header{
+    display:flex;
+    align-items: center;
+    flex-direction: row;
+    height:53px;
+    width: 100%;
+    border-bottom: thin solid var(--border);
+    padding: 0 15px;
+}
+.close-edit-profile{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:37px;
+    height:37px;
+    color: #1DA1F2;
+    margin-right: 20px;
+}
+.edit-profile-title{
+    font-size: 19px;
+    font-weight: 800;
+    display:flex;
+    align-items:center;
+    flex-grow:1;
+}
+.edit-form-submit {
+    width: 64.5px;
+    height: 53px;
+    margin-left: 20px;
+    display:flex;
+    align-items:center;
+}
+.save-edit-button{
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    width: 100%;
+    height:30px;
+    border-radius: 9999px;
+    background-color: #1DA1F2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.edit-profile-banner {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+    background-color: rgba(0, 0, 0, 0.3);
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    cursor:pointer;
+}
+.banner-img-icon {
+    fill: currentColor;
+    width: 22.5px;
+    height: 22.5px;
+}
+.edit-profile-avatar {
+    height: 120px;
+    width: 120px;
+    margin-top: -45px;
+    align-self: flex-start;
+    justify-self: flex-start;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+.edit-profile-avatar-img{
+    max-height:112px;
+    max-width:112px;
+    border-radius: 9999px;
+    
+}
+.avatar-img-icon {
+    fill: currentColor;
+    width: 22.5px;
+    height: 22.5px;
+    position:absolute;
+}
+.edit-profile-form-input{
+    margin-bottom: 15px;
 }

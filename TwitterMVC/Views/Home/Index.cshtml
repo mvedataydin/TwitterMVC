@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home";
 }
 
+@model TwitterMVC.ViewModels.IndexViewModel
 
 
 <div id="root">
@@ -13,14 +14,14 @@
                         <i class="fab fa-twitter"></i>
                     </div>
                     <div class="nav-items">
-                        <div class="nav-item nav-item-active nav-item-home">
+                        <a href="/Home" class="nav-item nav-item-active nav-item-home">
                             <div class="explorer-hashtag-icon">
                                 <i class="fas fa-home"></i>
                             </div>
                             <div class="nav-text">
                                 Home
                             </div>
-                        </div>
+                        </a>
                         <div class="nav-item nav-item-home">
                             <div class="explorer-hashtag-icon">
                                 <i class="fas fa-hashtag"></i>
@@ -61,14 +62,14 @@
                                 Lists
                             </div>
                         </div>
-                        <div class="nav-item nav-item-home">
+                        <a href="/Home/Profile" class="nav-item nav-item-home">
                             <div class="explorer-settings-icon">
                                 <i class="far fa-user"></i>
                             </div>
                             <div class="nav-text">
                                 Profile
                             </div>
-                        </div>
+                        </a>
                         <div class="nav-item nav-item-home">
                             <div class="explorer-settings-icon icon-round">
                                 <i class="fas fa-ellipsis-h"></i>
@@ -88,11 +89,11 @@
                 <div class="user-nav-wrapper">
                     <div class="user-nav user-nav-toshrink">
                         <div class="user-nav-picture-container">
-                            <img class="user-nav-picture" src="~/assets/img/blank-profile-picture.jpg" />
+                            <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
                         </div>
                         <div class="user-nav-detail user-nav-tohide">
-                            <div class="user-nav-name">Vedat Aydin</div>
-                            <div class="user-nav-username">@@_vedataydin</div>
+                            <div class="user-nav-name">@Model.CurrentUser.FullName</div>
+                            <div class="user-nav-username">@@@Model.CurrentUser.UserName</div>
                         </div>
                         <div class="user-nav-chevron user-nav-tohide">
                             <i data-feather="chevron-down" class="feather-chevron-down"></i>
@@ -121,11 +122,14 @@
                         <div class="content-header content-header-home">
                             <div class="user-tweet-form-container">
                                 <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/blank-profile-picture.jpg" />
+                                    <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
                                 </div>
                                 <div class="user-tweet-form">
                                     <div class="tweet-input-wrapper">
-                                        <input class="user-tweet-input" placeholder="What's happening?">
+                                        <form asp-controller="Home" asp-action="AddTweet" method="post" id="add-tweet-form">
+                                            <input class="user-tweet-input" name="tweetContent" placeholder="What's happening?">
+
+                                        </form>
                                     </div>
                                     <div class="tweet-form-controls">
                                         <div class="tweet-control-button">
@@ -140,7 +144,7 @@
                                         <div class="tweet-control-button">
                                             <svg viewBox="0 0 24 24" class="smiley-button"><g><path d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75zm0-20C6.9 2.75 2.75 6.9 2.75 12S6.9 21.25 12 21.25s9.25-4.15 9.25-9.25S17.1 2.75 12 2.75z"></path><path d="M12 17.115c-1.892 0-3.633-.95-4.656-2.544-.224-.348-.123-.81.226-1.035.348-.226.812-.124 1.036.226.747 1.162 2.016 1.855 3.395 1.855s2.648-.693 3.396-1.854c.224-.35.688-.45 1.036-.225.35.224.45.688.226 1.036-1.025 1.594-2.766 2.545-4.658 2.545z"></path><circle cx="14.738" cy="9.458" r="1.478"></circle><circle cx="9.262" cy="9.458" r="1.478"></circle></g></svg>
                                         </div>
-                                        <div class="tweet-submit-button">
+                                        <div class="tweet-submit-button" onclick="submitOnClick('add-tweet-form')">
                                             <span class="tweet-submit-text">
                                                 Tweet
                                             </span>
@@ -150,359 +154,55 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="content-wrapper">
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg" />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
+                        @foreach (var tweet in Model.Tweets)
+                        {
+                            <div class="content-wrapper">
+                                <div class="content content-home">
+                                    <div class="user-tweet-picture-container">
+                                        <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
+                                    </div>
+                                    <div class="poster-tweet-container">
+                                        <div class="poster-info">
+                                            <span class="poster-info-fullname">@tweet.User.FullName</span>
+                                            <span class="poster-info-extra">
+                                                <span>@tweet.User.UserName</span>
+                                                <span>&middot;</span>
+                                                <span>@tweet.CreatedDate</span>
+                                            </span>
+                                            <div class="down-icon">
+                                                <i data-feather="chevron-down" class="feather-chevron-down"></i>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
+                                        <div class="tweet-content">
+                                           @tweet.Content
                                         </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
+                                        <div class="poster-tweet-controls">
+                                            <div class="comment-button">
+                                                <i class="far fa-comment"></i>
+                                            </div>
+                                            <div class="retweet-button">
+                                                <i class="fas fa-retweet"></i>
+                                            </div>
+                                            <div class="like-button">
+                                                <i class="far fa-heart"></i> @if(tweet.TweetLikes.Count != 0)
+                                                {
+                                                    <text>
+                                                    @tweet.TweetLikes.Count
+                                                    </text>
+                                                }
+                                            </div>
+                                            <div class="share-button">
+                                                <i class="fas fa-share-alt"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg" />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg"  />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
+                        }
 
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg" />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg"  />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg" />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg"  />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg" />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="content content-home">
-                                <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src="~/assets/img/getify.jpg" />
-                                </div>
-                                <div class="poster-tweet-container">
-                                    <div class="poster-info">
-                                        <span>getify</span>
-                                        <span class="poster-info-extra">
-                                            <span>@@getify</span>
-                                            <span>&middot;</span>
-                                            <span>2h</span>
-                                        </span>
-                                        <div class="down-icon">
-                                            <i data-feather="chevron-down" class="feather-chevron-down"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="tweet-content">
-                                        so
-                                        @@microsoft
-                                        announced the "surface dock 2" among their big surface device announcements last week, and supposedly it was going to be available in the next few weeks. but they haven't put up a product page (pricing, specs, etc) for it yet, not even a pre-order page. weird.
-                                    </div>
-                                    <div class="poster-tweet-controls">
-                                        <div class="comment-button">
-                                            <i class="far fa-comment"></i>
-                                        </div>
-                                        <div class="retweet-button">
-                                            <i class="fas fa-retweet"></i>
-                                        </div>
-                                        <div class="like-button">
-                                            <i class="far fa-heart"></i> 3
-                                        </div>
-                                        <div class="share-button">
-                                            <i class="fas fa-share-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -619,30 +319,22 @@
                                 Who to follow
                             </span>
                         </div>
-                        <div class="user-nav user-nav-tofollow">
-                            <div class="user-nav-picture-container">
-                                <img class="user-nav-picture" src="~/assets/img/blank-profile-picture.jpg" />
+                        @foreach (var item in Model.UsersToFollow)
+                        {
+                            <div class="user-nav  user-nav-tofollow">
+                                <div class="user-nav-picture-container">
+                                    <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
+                                </div>
+                                <div class="user-nav-detail">
+                                    <div class="user-nav-name">@item.FullName</div>
+                                    <div class="user-nav-username">@@@item.UserName</div>
+                                </div>
+                                <a href="@Url.Action("FollowUser","Home", new { followedId = item.Id })" class="user-nav-follow">
+                                    <span>Follow</span>
+                                </a>
                             </div>
-                            <div class="user-nav-detail">
-                                <div class="user-nav-name">Vedat Aydin</div>
-                                <div class="user-nav-username">@@_vedataydin</div>
-                            </div>
-                            <div class="user-nav-follow">
-                                <span>Follow</span>
-                            </div>
-                        </div>
-                        <div class="user-nav  user-nav-tofollow">
-                            <div class="user-nav-picture-container">
-                                <img class="user-nav-picture" src="~/assets/img/blank-profile-picture.jpg" />
-                            </div>
-                            <div class="user-nav-detail">
-                                <div class="user-nav-name">Vedat Aydin</div>
-                                <div class="user-nav-username">@@_vedataydin</div>
-                            </div>
-                            <div class="user-nav-follow">
-                                <span>Follow</span>
-                            </div>
-                        </div>
+                        }
+
                         <div class="show-more-container home-show-more">
                             <a>
                                 <div class="show-more">Show more</div>
@@ -671,5 +363,8 @@
     </main>
 </div>
 <script>
+    function submitOnClick(formName) {
+        document.forms[formName].submit();
+    }
     feather.replace()
 </script>

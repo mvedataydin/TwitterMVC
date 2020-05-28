@@ -147,7 +147,7 @@
             <div class="login-wrapper">
                 <div class="login-container">
                     <section class="login-section">
-                        <img class="login-img" draggable="false"  src="~/assets/img/twitter_login_sidebar_illustration.png" >
+                        <img class="login-img" draggable="false" src="~/assets/img/twitter_login_sidebar_illustration.png">
                         <div class="login-header">
                             <span class="login-header-text">
                                 See what’s happening in the world right now
@@ -190,11 +190,11 @@
                             <div class="or-seperator">
                                 or
                             </div>
-                            <a href="/home/register" class="form-signup-button-container">
-                                <div class="form-signup-button">
+                            <div class="form-signup-button-container" id="explore-form-signup-button">
+                                <div class="form-signup-button" >
                                     <span>Sign up</span>
                                 </div>
-                            </a>
+                            </div>
                         </form>
                     </section>
                     <div class="login-nav-container">
@@ -236,19 +236,123 @@
                     <span>Log in</span>
                 </a>
 
-                <a href="/home/register" class="footer-signup">
+                <div class="footer-signup" id="footer-signup-button">
 
                     <span>Sign up</span>
 
-                </a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div id="root-signup" style="display:none">
+    <div class="signup-form-container">
+        <div class="signup-form-icon">
+            <i class="fab fa-twitter twitter-icon-login"></i>
+
+        </div>
+        <div class="signup-form-title">
+            <span>
+                Create your account
+            </span>
+        </div>
+        <form asp-controller="Home" asp-action="Register" method="post" class="login-form" id="signup-form">
+
+            <div class="email-username email-2">
+                <label class="input-label">
+                    <div>
+                        <div class="tag-container">
+                            <span class="input-tag">Name</span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="tel" name="name" class="email-username-input" value="" required />
+                    </div>
+                </label>
+            </div>
+            <div class="email-username email-2">
+                <label class="input-label">
+                    <div>
+                        <div class="tag-container">
+                            <span class="input-tag">Username</span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" name="username" class="email-username-input" value="" required />
+                    </div>
+                </label>
+            </div>
+
+            <div class="email-username email-2">
+                <label class="input-label">
+                    <div>
+                        <div class="tag-container">
+                            <span class="input-tag">Email</span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" name="email" class="email-username-input" value="" required />
+                    </div>
+                </label>
+            </div>
+            <div class="password pass-2">
+                <label class="input-label">
+                    <div>
+                        <div class="tag-container">
+                            <span class="input-tag">Password</span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="password" name="password" class="password-input" value="" required />
+                    </div>
+                </label>
+            </div>
+            <div class="form-login-button-container login-button-container-2">
+                <div class="form-login-button login-button-2" onclick="submitOnClick('signup-form')">
+                    Sign up
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="backdrop" id="backdrop" style="display:none; height: 100%; width: 100%">
+
+</div>
 <script>
+    const formSignUpButton = document.getElementById("explore-form-signup-button");
+    const footerSignUpButton = document.getElementById("footer-signup-button");
+    const backdrop = document.getElementById("backdrop");
+
+        formSignUpButton.addEventListener("click", function () {
+        console.log("footer-signup");
+        const signUpModal = document.getElementById("root-signup");
+
+        const body = document.querySelector("body");
+        body.style.overflow = "hidden";
+        signUpModal.style.display = "flex";
+        backdrop.style.display = "block";
+    })
+
+    footerSignUpButton.addEventListener("click", function () {
+        console.log("footer-signup");
+        const signUpModal = document.getElementById("root-signup");
+
+        const body = document.querySelector("body");
+        body.style.overflow = "hidden";
+        signUpModal.style.display = "flex";
+        backdrop.style.display = "block";
+    })
+    backdrop.addEventListener("click", function () {
+        const signUpModal = document.getElementById("root-signup");
+        console.log("footer-backdrop")
+
+        signUpModal.style.display = "none";
+        backdrop.style.display = "none";
+    })
     function submitOnClick(formName) {
         document.forms[formName].submit();
     }
-        feather.replace()
+    feather.replace()
 </script>
 
