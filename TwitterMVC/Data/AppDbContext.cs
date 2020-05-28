@@ -37,12 +37,12 @@ namespace TwitterMVC.Data
                 .HasKey(tl => new { tl.TweetId, tl.UserId });
 
             modelBuilder.Entity<TweetLike>()
-                .HasOne<Tweet>(tl => tl.Tweet)
+                .HasOne(tl => tl.Tweet)
                 .WithMany(t => t.TweetLikes)
                 .HasForeignKey(tl => tl.TweetId);
 
             modelBuilder.Entity<TweetLike>()
-                .HasOne<ApplicationUser>(tl => tl.User)
+                .HasOne(tl => tl.User)
                 .WithMany(u => u.TweetLikes)
                 .HasForeignKey(tl => tl.UserId);
 

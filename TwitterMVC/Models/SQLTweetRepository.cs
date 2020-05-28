@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TwitterMVC.Data;
-
+using Microsoft.EntityFrameworkCore;
 namespace TwitterMVC.Models
 {
     public class SQLTweetRepository : ITweetRepository
@@ -13,14 +13,25 @@ namespace TwitterMVC.Models
         {
             _context = context;
         }
-        public IEnumerable<Tweet> GetFollowedUsersTweets(string UserId)
+        public IEnumerable<Tweet> GetFollowedUsersTweets(List<string> followedUsers)
         {
-            throw new NotImplementedException();
+            return _context.Tweets.Include(t => t.TweetLikes).Where(u => followedUsers.Contains(u.User.Id));
         }
-
         public IEnumerable<Tweet> GetUserTweets(string UserId)
         {
-            return _context.Tweets.Where(tw => tw.User.Id == UserId);
+            return _context.Tweets.Include(t => t.TweetLikes).Where(tw => tw.User.Id == UserId);
+        }
+        public TweetLike AddLikeToTweet(int tweetId)
+        {
+            Tweet tweet = _context.Tweets.FirstOrDefault(tw => tw.Id == tweetId);
+            TweetLike tweetLike = new TweetLike()
+            {
+                TweetId = tweet.Id,
+                UserId = tweet.User.Id
+            };
+            _context.TweetLikes.Add(tweetLike);
+            _context.SaveChanges();
+            return tweetLike;
         }
 
         public Tweet PostTweet(Tweet tweet)
