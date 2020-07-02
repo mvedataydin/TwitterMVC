@@ -21,19 +21,29 @@ namespace TwitterMVC.Models
         {
             return _context.Tweets.Include(t => t.TweetLikes).Where(tw => tw.User.Id == UserId);
         }
-        public TweetLike AddLikeToTweet(int tweetId)
+        public void AddLikeToTweet(int tweetId, string userId)
         {
-            Tweet tweet = _context.Tweets.FirstOrDefault(tw => tw.Id == tweetId);
+            ApplicationUser user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            Tweet tweet = _context.Tweets.Include(t => t.TweetLikes).Include(tl => tl.User).Single(t => t.Id == tweetId);
+            if(tweet.TweetLikes.Where(tl => tl.UserId == userId).Count() == 1)
+            {
+                var like = tweet.TweetLikes.FirstOrDefault(tl => tl.UserId == userId);
+                RemoveLikeFromTweet(like);
+                return;
+            }
             TweetLike tweetLike = new TweetLike()
             {
                 TweetId = tweet.Id,
-                UserId = tweet.User.Id
+                UserId = userId
             };
             _context.TweetLikes.Add(tweetLike);
             _context.SaveChanges();
-            return tweetLike;
         }
-
+        public void RemoveLikeFromTweet(TweetLike tweetLike)
+        {
+            _context.TweetLikes.Remove(tweetLike);
+            _context.SaveChanges();
+        }
         public Tweet PostTweet(Tweet tweet)
         {
             _context.Tweets.Add(tweet);

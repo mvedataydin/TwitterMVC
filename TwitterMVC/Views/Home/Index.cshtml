@@ -89,7 +89,16 @@
                 <div class="user-nav-wrapper">
                     <div class="user-nav user-nav-toshrink">
                         <div class="user-nav-picture-container">
-                            <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
+                            @if (Model.CurrentUser.Avatar != null)
+                            {
+                                <img class="user-nav-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Avatar)) />
+
+                            }
+                            else
+                            {
+                                <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
+
+                            }
                         </div>
                         <div class="user-nav-detail user-nav-tohide">
                             <div class="user-nav-name">@Model.CurrentUser.FullName</div>
@@ -122,7 +131,16 @@
                         <div class="content-header content-header-home">
                             <div class="user-tweet-form-container">
                                 <div class="user-tweet-picture-container">
-                                    <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
+                                    @if (Model.CurrentUser.Avatar != null)
+                                    {
+                                        <img class="user-tweet-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Avatar)) />
+
+                                    }
+                                    else
+                                    {
+                                        <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
+
+                                    }
                                 </div>
                                 <div class="user-tweet-form">
                                     <div class="tweet-input-wrapper">
@@ -159,7 +177,16 @@
                             <div class="content-wrapper">
                                 <div class="content content-home">
                                     <div class="user-tweet-picture-container">
-                                        <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
+                                        @if (tweet.User.Avatar != null)
+                                        {
+                                            <img class="user-tweet-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(tweet.User.Avatar)) />
+
+                                        }
+                                        else
+                                        {
+                                            <img class="user-tweet-picture" src=@tweet.User.AvatarPath />
+
+                                        }
                                     </div>
                                     <div class="poster-tweet-container">
                                         <div class="poster-info">
@@ -185,11 +212,27 @@
                                                 <i class="fas fa-retweet"></i>
                                             </div>
                                             <div class="like-button">
-                                                <i class="far fa-heart"></i> @if(tweet.TweetLikes.Count != 0)
+                                                @if (tweet.TweetLikes.Where(tl => tl.UserId == Model.CurrentUser.Id).Count() == 1)
                                                 {
-                                                    <text>
-                                                    @tweet.TweetLikes.Count
-                                                    </text>
+                                                    <a href="@Url.Action("LikeTweet","Home", new { tweetId = tweet.Id })" style="color: rgb(224, 36, 94);">
+                                                        <i class="far fa-heart"></i> @if (tweet.TweetLikes.Count != 0)
+                                                        {
+                                                            <text>
+                                                                @tweet.TweetLikes.Count
+                                                            </text>
+                                                        }
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("LikeTweet","Home", new { tweetId = tweet.Id })">
+                                                        <i class="far fa-heart"></i> @if (tweet.TweetLikes.Count != 0)
+                                                        {
+                                                            <text>
+                                                                @tweet.TweetLikes.Count
+                                                            </text>
+                                                        }
+                                                    </a>
                                                 }
                                             </div>
                                             <div class="share-button">
@@ -323,7 +366,16 @@
                         {
                             <div class="user-nav  user-nav-tofollow">
                                 <div class="user-nav-picture-container">
-                                    <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
+                                    @if (Model.CurrentUser.Avatar != null)
+                                    {
+                                        <img class="user-nav-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(item.Avatar)) />
+
+                                    }
+                                    else
+                                    {
+                                        <img class="user-nav-picture" src=@item.AvatarPath />
+
+                                    }
                                 </div>
                                 <div class="user-nav-detail">
                                     <div class="user-nav-name">@item.FullName</div>

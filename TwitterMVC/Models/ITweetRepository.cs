@@ -10,6 +10,7 @@ namespace TwitterMVC.Models
         IEnumerable<Tweet> GetFollowedUsersTweets(List<string> followedUsers);
         IEnumerable<Tweet> GetUserTweets(string UserId);
         Tweet PostTweet(Tweet tweet);
-        TweetLike AddLikeToTweet(int tweetId);
+        void AddLikeToTweet(int tweetId, string userId);
+        void RemoveLikeFromTweet(TweetLike tweetLike);
     }
 }

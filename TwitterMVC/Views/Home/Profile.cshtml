@@ -94,7 +94,16 @@
                 <div class="user-nav-wrapper">
                     <div class="user-nav user-nav-toshrink">
                         <div class="user-nav-picture-container">
-                            <img class="user-nav-picture" src="~/assets/img/blank-profile-picture.png" />
+                            @if (Model.CurrentUser.Avatar != null)
+                            {
+                                <img class="user-nav-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Avatar)) />
+
+                            }
+                            else
+                            {
+                                <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
+
+                            }
                         </div>
                         <div class="user-nav-detail user-nav-tohide">
                             <div class="user-nav-name">@Model.CurrentUser.FullName</div>
@@ -132,11 +141,27 @@
 
                     <div class="content-container">
                         <div class="content-header content-header-home content-header-profile">
-                            <div class="profile-banner"></div>
+                            <div class="profile-banner">
+                                @if (Model.CurrentUser.Banner != null)
+                                {
+                                    <img style="max-width:100%; max-height:100%; width:600px; border:none;" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Banner)) />
+
+                                }
+
+                            </div>
                             <div class="profile-user-detail-section">
                                 <div class="profile-user-detail-header">
                                     <div class="profile-user-detail-avatar">
-                                        <img class="user-nav-avatar-img" src=@Model.CurrentUser.AvatarPath />
+                                        @if (Model.CurrentUser.Avatar != null)
+                                        {
+                                            <img class="user-nav-avatar-img" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Avatar)) />
+
+                                        }
+                                        else
+                                        {
+                                            <img class="user-nav-avatar-img" src=@Model.CurrentUser.AvatarPath />
+
+                                        }
 
                                     </div>
                                     <div class="profile-user-detail-edit" id="edit-profile-button"><a class="edit-profile-button">Edit Profile</a></div>
@@ -184,7 +209,16 @@
                             <div class="content-wrapper">
                                 <div class="content content-home">
                                     <div class="user-tweet-picture-container">
-                                        <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
+                                        @if (Model.CurrentUser.Avatar != null)
+                                        {
+                                            <img class="user-tweet-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Avatar)) />
+
+                                        }
+                                        else
+                                        {
+                                            <img class="user-tweet-picture" src=@Model.CurrentUser.AvatarPath />
+
+                                        }
                                     </div>
                                     <div class="poster-tweet-container">
                                         <div class="poster-info">
@@ -210,11 +244,29 @@
                                                 <i class="fas fa-retweet"></i>
                                             </div>
                                             <div class="like-button">
-                                                <i class="far fa-heart"></i> @if (tweet.TweetLikes.Count != 0) {
-                                                    <text>
-                                                        @tweet.TweetLikes.Count
-                                                    </text>
+                                                @if (tweet.TweetLikes.Where(tl => tl.UserId == Model.CurrentUser.Id).Count() == 1)
+                                                {
+                                                    <a href="@Url.Action("LikeTweet","Home", new { tweetId = tweet.Id })" style="color: rgb(224, 36, 94);">
+                                                        <i class="far fa-heart"></i> @if (tweet.TweetLikes.Count != 0)
+                                                        {
+                                                            <text>
+                                                                @tweet.TweetLikes.Count
+                                                            </text>
+                                                        }
+                                                    </a>
                                                 }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("LikeTweet","Home", new { tweetId = tweet.Id })">
+                                                        <i class="far fa-heart"></i> @if (tweet.TweetLikes.Count != 0)
+                                                        {
+                                                            <text>
+                                                                @tweet.TweetLikes.Count
+                                                            </text>
+                                                        }
+                                                    </a>
+                                                }
+
                                             </div>
                                             <div class="share-button">
                                                 <i class="fas fa-share-alt"></i>
@@ -255,7 +307,16 @@
                         {
                             <div class="user-nav  user-nav-tofollow">
                                 <div class="user-nav-picture-container">
-                                    <img class="user-nav-picture" src=@Model.CurrentUser.AvatarPath />
+                                    @if (item.Avatar != null)
+                                    {
+                                        <img class="user-nav-picture" src=@("data:image/png;base64," +System.Convert.ToBase64String(item.Avatar)) />
+
+                                    }
+                                    else
+                                    {
+                                        <img class="user-nav-picture" src=@item.AvatarPath />
+
+                                    }
                                 </div>
                                 <div class="user-nav-detail">
                                     <div class="user-nav-name">@item.FullName</div>
@@ -399,11 +460,30 @@
             </div>
         </div>
         <div class="edit-profile-banner" onclick="document.getElementById('banner-file-input').click();">
-            <img style="max-width:100%; max-height:100%; width:600px; border:none; display:none" id="banner-img-preview"/>
-            <svg viewBox="0 0 24 24" class="banner-img-icon"><g><path d="M19.708 22H4.292C3.028 22 2 20.972 2 19.708V7.375C2 6.11 3.028 5.083 4.292 5.083h2.146C7.633 3.17 9.722 2 12 2c2.277 0 4.367 1.17 5.562 3.083h2.146C20.972 5.083 22 6.11 22 7.375v12.333C22 20.972 20.972 22 19.708 22zM4.292 6.583c-.437 0-.792.355-.792.792v12.333c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V7.375c0-.437-.355-.792-.792-.792h-2.45c-.317.05-.632-.095-.782-.382-.88-1.665-2.594-2.7-4.476-2.7-1.883 0-3.598 1.035-4.476 2.702-.16.302-.502.46-.833.38H4.293z"></path><path d="M12 8.167c-2.68 0-4.86 2.18-4.86 4.86s2.18 4.86 4.86 4.86 4.86-2.18 4.86-4.86-2.18-4.86-4.86-4.86zm2 5.583h-1.25V15c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-1.25H10c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h1.25V11c0-.414.336-.75.75-.75s.75.336.75.75v1.25H14c.414 0 .75.336.75.75s-.336.75-.75.75z"></path></g></svg>
+            @if (Model.CurrentUser.Banner != null)
+            {
+                <img style="max-width:100%; max-height:100%; width:600px; border:none;" id="banner-img-preview" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Banner)) />
+
+            }
+            else
+            {
+                <img style="max-width:100%; max-height:100%; width:600px; border:none; display:none" id="banner-img-preview" />
+                <svg viewBox="0 0 24 24" class="banner-img-icon"><g><path d="M19.708 22H4.292C3.028 22 2 20.972 2 19.708V7.375C2 6.11 3.028 5.083 4.292 5.083h2.146C7.633 3.17 9.722 2 12 2c2.277 0 4.367 1.17 5.562 3.083h2.146C20.972 5.083 22 6.11 22 7.375v12.333C22 20.972 20.972 22 19.708 22zM4.292 6.583c-.437 0-.792.355-.792.792v12.333c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V7.375c0-.437-.355-.792-.792-.792h-2.45c-.317.05-.632-.095-.782-.382-.88-1.665-2.594-2.7-4.476-2.7-1.883 0-3.598 1.035-4.476 2.702-.16.302-.502.46-.833.38H4.293z"></path><path d="M12 8.167c-2.68 0-4.86 2.18-4.86 4.86s2.18 4.86 4.86 4.86 4.86-2.18 4.86-4.86-2.18-4.86-4.86-4.86zm2 5.583h-1.25V15c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-1.25H10c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h1.25V11c0-.414.336-.75.75-.75s.75.336.75.75v1.25H14c.414 0 .75.336.75.75s-.336.75-.75.75z"></path></g></svg>
+
+
+            }
         </div>
         <div class="profile-user-detail-avatar edit-profile-avatar" onclick="document.getElementById('avatar-file-input').click();">
-            <img class="user-nav-avatar-img edit-profile-avatar-img" id="avatar-img-preview" src=@Model.CurrentUser.AvatarPath  />
+            @if (Model.CurrentUser.Avatar != null)
+            {
+                <img class="user-nav-avatar-img edit-profile-avatar-img" id="avatar-img-preview" src=@("data:image/png;base64," +System.Convert.ToBase64String(Model.CurrentUser.Avatar)) />
+
+            }
+            else
+            {
+                <img class="user-nav-avatar-img edit-profile-avatar-img" id="avatar-img-preview" src=@Model.CurrentUser.AvatarPath />
+
+            }
             <svg viewBox="0 0 24 24" class="avatar-img-icon"><g><path d="M19.708 22H4.292C3.028 22 2 20.972 2 19.708V7.375C2 6.11 3.028 5.083 4.292 5.083h2.146C7.633 3.17 9.722 2 12 2c2.277 0 4.367 1.17 5.562 3.083h2.146C20.972 5.083 22 6.11 22 7.375v12.333C22 20.972 20.972 22 19.708 22zM4.292 6.583c-.437 0-.792.355-.792.792v12.333c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V7.375c0-.437-.355-.792-.792-.792h-2.45c-.317.05-.632-.095-.782-.382-.88-1.665-2.594-2.7-4.476-2.7-1.883 0-3.598 1.035-4.476 2.702-.16.302-.502.46-.833.38H4.293z"></path><path d="M12 8.167c-2.68 0-4.86 2.18-4.86 4.86s2.18 4.86 4.86 4.86 4.86-2.18 4.86-4.86-2.18-4.86-4.86-4.86zm2 5.583h-1.25V15c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-1.25H10c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h1.25V11c0-.414.336-.75.75-.75s.75.336.75.75v1.25H14c.414 0 .75.336.75.75s-.336.75-.75.75z"></path></g></svg>
 
         </div>

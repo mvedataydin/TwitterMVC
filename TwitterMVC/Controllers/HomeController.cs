@@ -148,6 +148,15 @@ namespace TwitterMVC.Controllers
 
             return RedirectToAction("Index");
         }
+        [Route("LikeTweet")]
+        public async Task<IActionResult> LikeTweet(int tweetId)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
+
+            _tweetRepository.AddLikeToTweet(tweetId, userId);
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
         [Route("Profile")]
         [Authorize]
         public async Task<IActionResult> Profile() {
